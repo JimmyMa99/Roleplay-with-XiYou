@@ -11,7 +11,8 @@
 
 # 快速开始
 
-## ⚙️部署BaJie-Chat到Linux环境中
+<details>
+  <summary style="font-weight: bold; font-size: larger;">⚙️部署Roleplay-with-XiYou到Linux环境中</summary>
 
 ## 环境配置
 
@@ -92,6 +93,8 @@ python client_start.py
 ## 效果一览
 
 ![Untitled](figure/展示图.png)
+
+</details>
 
 # 数据获取
 
