@@ -154,7 +154,7 @@ python tools/get_data/Q2A/q2a_api.py --questions_path {your_question} --save_pat
 
 原 repo 链接：**[extract-dialogue](https://github.com/KMnO4-zx/extract-dialogue)**
 
-1. 从原文中获取对话（以孙悟空为例）
+1.从原文中获取对话（以孙悟空为例）
     
     首先需要在 `tools/get_data/extract-dialogue/OpenAI_LLM.py` 中配置 api
     
@@ -173,7 +173,7 @@ python tools/get_data/extract-dialogue/main.py --path {novel_path} --roles 孙�
 
 完成后会在 `tools/get_data/extract-dialogue/output` 下生成两个文件 *.json 就是对话内容
 
-1. 将对话内容转换为 xtuner 可用格式
+2.将对话内容转换为 xtuner 可用格式
 
 ```jsx
 python tools/get_data/extract-dialogue/process_data.py --raw_data {output.json} --save_path {swk.jsonl} --role 孙悟空
@@ -187,29 +187,29 @@ python tools/get_data/extract-dialogue/process_data.py --raw_data {output.json} 
 
 `--role` :角色名称
 
-1. 长对话提取（此模块脚本可能需要优化）
+### 3.长对话提取（此模块脚本可能需要优化）
     
-    此脚本与方法1中脚本类似 同样需要配置 api ，具体prompt修改如下
+  此脚本与方法1中脚本类似 同样需要配置 api ，具体prompt修改如下
     
-    ```jsx
-    base_prompt='你是一个对话整理大师，以下内容为《西游记》节选，请你整理出角色“唐三藏”，“孙悟空”，“猪八戒”，“沙悟净”四人的对话内容，当然，这四人在小说中可能以别的名字出现，如：唐三藏->金蝉子，孙悟空->猴王->行者等人物需要你根据理解自行判别，直接返回对话内容，返回格式为：唐三藏：{对话内容}，孙悟空：{对话内容}，猪八戒：{对话内容}，沙悟净：{对话内容}，某人说：{对话内容}；若内容中无对话，则直接回答“无对话内容”无需提及人物，若对话不完整或者你没法确定对话的人物关系，你可以放弃整理，直接回复“无对话内容”无需提及人物，若出现非四人内任务与四人对话，非四人内的以“某人说”记录，请保持对话的准确性，不要修改和翻译，请不要解释。以下为节选片段：'
-    ```
+  ```jsx
+  base_prompt='你是一个对话整理大师，以下内容为《西游记》节选，请你整理出角色“唐三藏”，“孙悟空”，“猪八戒”，“沙悟净”四人的对话内容，当然，这四人在小说中可能以别的名字出现，如：唐三藏->金蝉子，孙悟空->猴王->行者等人物需要你根据理解自行判别，直接返回对话内容，返回格式为：唐三藏：{对话内容}，孙悟空：{对话内容}，猪八戒：{对话内容}，沙悟净：{对话内容}，某人说：{对话内容}；若内容中无对话，则直接回答“无对话内容”无需提及人物，若对话不完整或者你没法确定对话的人物关系，你可以放弃整理，直接回复“无对话内容”无需提及人物，若出现非四人内任务与四人对话，非四人内的以“某人说”记录，请保持对话的准确性，不要修改和翻译，请不要解释。以下为节选片段：'
+  ```
     
-    运行脚本
+  运行脚本
     
-    ```jsx
-    python tools/get_data/long-dialogue/q2a_api.py --file_path {novel_path} --save_path {save_path}
-    ```
+  ```jsx
+  python tools/get_data/long-dialogue/q2a_api.py --file_path {novel_path} --save_path {save_path}
+  ```
+  
+  完成后会生成由 GPT 生成的对话整理
+  
+  接下来运行脚本提取长对话
+  
+  ```jsx
+  python tools/get_data/long-dialogue/get_data.py --data_path {conversation.txt} --save_path {output path} 
+  ```
     
-    完成后会生成由 GPT 生成的对话整理
-    
-    接下来运行脚本提取长对话
-    
-    ```jsx
-    python tools/get_data/long-dialogue/get_data.py --data_path {conversation.txt} --save_path {output path} 
-    ```
-    
-    该脚本一次可以生成多个角色的符合 xtuner 的训练数据
+  该脚本一次可以生成多个角色的符合 xtuner 的训练数据
     
 
 三个方法完成后需要整理到同一个 .jsonl 文件下，即可进行下一步使用 XTuner 微调
