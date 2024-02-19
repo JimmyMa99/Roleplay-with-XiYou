@@ -107,3 +107,7 @@ python client_start.py
 # 相关链接
 
 待更新
+
+# FAQ
+
+1.如何使用更少的显存
