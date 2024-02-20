@@ -493,6 +493,7 @@ openxlab
 # 启动 Chatroom 和 streamlit
 
 待更新
+
 # 相关链接
 
 [三藏-Chat](https://github.com/JimmyMa99/SanZang-Chat)
@@ -502,6 +503,31 @@ openxlab
 [八戒-Chat](https://github.com/JimmyMa99/BaJie-Chat)
 
 [悟净-Chat](https://github.com/JimmyMa99/WuJing-Chat)
+
+# 特别鸣谢
+
+<p align="center">
+上海人工智能实验室的大力支持！
+</p>
+
+<div align="center">
+
+<img src="figure/last_fig1.png" width="100"/>
+  <div>&nbsp;</div>
+  <div align="center">
+  </div>
+</div>
+
+<p align="center">
+书生·浦语团队的大力支持！
+</p>
+
+<div align="center">
+<img src="figure/last_fig2.png" width="200"/>
+  <div>&nbsp;</div>
+  <div align="center">
+  </div>
+</div>
 
 # 写在最后
 
