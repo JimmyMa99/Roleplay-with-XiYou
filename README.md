@@ -1,8 +1,14 @@
-# Roleplay-with-XiYou
+# Roleplay-with-XiYou 西游角色扮演
+
+<center>
+    <img src="figure/first_fig.webp" alt="example">
+</center>
 
 # 简介
 
-基于《西游记》原文、白话文、ChatGPT生成数据制作的角色扮演多LLM聊天室。
+基于《西游记》原文、白话文、ChatGPT生成数据制作的，以InternLM2微调的角色扮演多LLM聊天室。
+
+本项目将介绍关于角色扮演类 LLM 的一切，从数据获取、数据处理，到使用 XTuner 微调并部署至 OpenXLab，再到使用 LMDeploy 部署，以 openai api 的方式接入简单的聊天室，并可以观看不同角色的 LLM 互相交流、互怼。
 
 包括模型：[三藏-Chat](https://github.com/JimmyMa99/SanZang-Chat)，[悟空-Chat](https://github.com/JimmyMa99/WuKong-Chat)，[八戒-Chat](https://github.com/JimmyMa99/BaJie-Chat)，[悟净-Chat](https://github.com/JimmyMa99/WuJing-Chat)
 
@@ -11,7 +17,7 @@
 
 # 🎲单个模型速速开玩
 
-<details>
+
   <summary style="font-weight: bold; font-size: larger;">🎲部署在 OpenXLab 的单个模型试玩链接</summary>
 
 [三藏-Chat](https://openxlab.org.cn/apps/detail/JimmyMa99/SanZang-Chat)
@@ -30,7 +36,6 @@
 
 ![Untitled](figure/play4.png)
 
-</details>
 
 # 环境配置
 
