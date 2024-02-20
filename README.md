@@ -1,8 +1,12 @@
 # Roleplay-with-XiYou 西游角色扮演
 
-<center>
-    <img src="figure/first_fig.webp" alt="example">
-</center>
+<div align="center">
+
+<img src="figure/first_fig.webp" width="300"/>
+  <div>&nbsp;</div>
+  <div align="center">
+  </div>
+</div>
 
 # 简介
 
