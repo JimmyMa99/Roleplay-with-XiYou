@@ -233,7 +233,7 @@ python tools/get_data/Q2A/q2a_api.py --questions_path {your_question} --save_pat
     首先需要在 `tools/get_data/extract-dialogue/OpenAI_LLM.py` 中配置 api
     
     然后运行脚本
-    
+
 
 ```shell
 python tools/get_data/extract-dialogue/main.py --path {novel_path} --roles 孙悟空,悟空,石猴,美猴王,孙大圣,齐天大圣,行者,孙行者
@@ -262,27 +262,27 @@ python tools/get_data/extract-dialogue/process_data.py --raw_data {output.json} 
 `--role` :角色名称
 
 ### 3.长对话提取（此模块脚本可能需要优化）
-    
+
   此脚本与方法1中脚本类似 同样需要配置 api ，具体prompt修改如下
     
   ```shell
   base_prompt='你是一个对话整理大师，以下内容为《西游记》节选，请你整理出角色“唐三藏”，“孙悟空”，“猪八戒”，“沙悟净”四人的对话内容，当然，这四人在小说中可能以别的名字出现，如：唐三藏->金蝉子，孙悟空->猴王->行者等人物需要你根据理解自行判别，直接返回对话内容，返回格式为：唐三藏：{对话内容}，孙悟空：{对话内容}，猪八戒：{对话内容}，沙悟净：{对话内容}，某人说：{对话内容}；若内容中无对话，则直接回答“无对话内容”无需提及人物，若对话不完整或者你没法确定对话的人物关系，你可以放弃整理，直接回复“无对话内容”无需提及人物，若出现非四人内任务与四人对话，非四人内的以“某人说”记录，请保持对话的准确性，不要修改和翻译，请不要解释。以下为节选片段：'
   ```
-    
+
   运行脚本
     
   ```shell
   python tools/get_data/long-dialogue/q2a_api.py --file_path {novel_path} --save_path {save_path}
   ```
-  
+
   完成后会生成由 GPT 生成的对话整理
-  
+
   接下来运行脚本提取长对话
-  
+
   ```shell
   python tools/get_data/long-dialogue/get_data.py --data_path {conversation.txt} --save_path {output path} 
   ```
-    
+
   该脚本一次可以生成多个角色的符合 xtuner 的训练数据
     
 
@@ -459,3 +459,9 @@ openxlab
 [八戒-Chat](https://github.com/JimmyMa99/BaJie-Chat)
 
 [悟净-Chat](https://github.com/JimmyMa99/WuJing-Chat)
+
+# 写在最后
+
+时间易逝，光阴荏苒，**西游角色扮演**这篇Readme文档也将接近尾声。说到尾声，我就想起了我们师徒四人在86版《西游记》中经历的最后一难。明年年初，中美合拍的《西游记》即将正式开机，我将继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家多多关注。
+
+今年下半年，中美合拍的西游记即将正式开机，我继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家能多多关注。
