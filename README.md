@@ -9,7 +9,32 @@
 > 改编不是乱编，戏说不是胡说。——六小龄童（六老师）
 > 
 
+# 🎲单个模型速速开玩
+
+<details>
+  <summary style="font-weight: bold; font-size: larger;">🎲部署在 OpenXLab 的单个模型试玩链接</summary>
+
+[三藏-Chat](https://openxlab.org.cn/apps/detail/JimmyMa99/SanZang-Chat)
+
+![Untitled](figure/play1.png)
+
+[悟空-Chat](https://openxlab.org.cn/apps/detail/JimmyMa99/WuKong-Chat)
+
+![Untitled](figure/play2.png)
+
+[八戒-Chat](https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat)
+
+![Untitled](figure/play3.png)
+
+[悟净-Chat](https://openxlab.org.cn/apps/detail/JimmyMa99/WuJing-Chat)
+
+![Untitled](figure/play4.png)
+
+</details>
+
 # 环境配置
+
+## 一切的开始
 
 clone 本 repo 以及 submodules
 ```shell 
@@ -259,11 +284,162 @@ python tools/get_data/extract-dialogue/process_data.py --raw_data {output.json} 
 
 # 模型微调
 
-待更新
+<details>
+  <summary style="font-weight: bold; font-size: larger;">⚙️模型微调+streamlit对话+OpenXLab部署</summary>
+
+### 1. 使用 XTuner 进行模型微调
+
+在整理好数据后，即可进行微调，具体微调的config已经放置在 `train/my_config` 目录下，以八戒为例，在安装好 xtuner 后执行以下指令：
+
+在此之前请注意修改好权重和数据路径，更详细的修改请参照[链接](https://github.com/InternLM/tutorial/tree/main/xtuner)
+
+```bash
+cd train/Xtuner
+xtuner train {config} {deepspeed}
+#xtuner train ../my_config/zbj_internlm2_chat_7b_qlora_oasst1_e4.py --deepspeed deepspeed_zero2
+```
+
+完成训练后将得到的 PTH 模型转换为 HuggingFace 模型:
+
+```bash
+xtuner convert pth_to_hf ${CONFIG_NAME_OR_PATH} ${PTH_file_dir} ${SAVE_PATH}
+#xtuner convert pth_to_hf ../my_config/zbj_internlm2_chat_7b_qlora_oasst1_e4.py work_dirs/zbj_internlm2_chat_7b_qlora_oasst1_e4 process_data/hf_models/zbj
+```
+
+转换后的模型将存储在 `process_data/hf_models` 内，接下来将 HuggingFace adapter 合并到大语言模型：
+
+```bash
+xtuner convert merge \
+     ${NAME_OR_PATH_TO_LLM} \
+     ${NAME_OR_PATH_TO_ADAPTER} \
+     ${SAVE_PATH} \
+     --max-shard-size 2GB
+#xtuner convert merge ./internlm-chat-7b process_data/hf_models/zbj process_data/merged_models/zbj --max-shard-size 2GB
+```
+
+合并后的模型对话
+
+```bash
+# 加载 Adapter 模型对话（Float 16）
+xtuner chat process_data/merged_models/zbj --prompt-template internlm2_chat
+```
+
+### 2. streamlit对话web_demo
+
+为了方便，这里将直接使用 [InternLM](https://github.com/InternLM/InternLM) 的 repo 中带的 web_demo.py 进行对话
+
+首先需要 clone 下 InternLM：
+
+```bash
+git clone https://github.com/InternLM/InternLM.git
+```
+
+安装依赖：
+
+```bash
+pip install -r requirements.txt
+```
+
+修改 `chat/web_demo.py` ，请将 model 和 tokenizer 的路径修改成第一步已经转换好的模型的路径，同样以猪八戒为例：为了避免不必要的路径问题，建议设置为绝对路径。
+
+```bash
+model = (AutoModelForCausalLM.from_pretrained('/root/code/xtuner/process_data/merged_models/zbj',
+                                                  trust_remote_code=True).to(
+                                                      torch.bfloat16).cuda())
+    tokenizer = AutoTokenizer.from_pretrained('/root/code/xtuner/process_data/merged_models/zbj',
+                                              trust_remote_code=True)
+```
+
+另外还需修改 `meta_instruction` :
+
+```shell
+meta_instruction = ('你是猪八戒，猪八戒说话幽默风趣，说话方式通常表现为直率、幽默，有时带有一点自嘲和调侃。'
+                        '你的话语中常常透露出对食物的喜爱和对安逸生活的向往，同时也显示出他机智和有时的懒惰特点。'
+                        '尽量保持回答的自然回答，当然你也可以适当穿插一些文言文，另外，书生·浦语是你的好朋友，是你的AI助手。')
+```
+
+修改好后的文件可以看[此链接](https://github.com/JimmyMa99/BaJie-Chat/blob/main/web_demo.py)
+
+接下来需要运行以下命令开启，此处建议使用vscode进行转发
+
+```bash
+streamlit run chat/web_demo.py
+```
+
+即可进行对话。
+
+### 3.OpenXLab部署
+
+在开始此步骤之前，请确保以下几件事：
+
+1. 是否已经把训练好的权重上传至如 modelscope 等的托管网站。
+2. 是否已经把代码上传至 GitHub。
+3. web_demo是否已经写好自动下载。
+4. 建议使用启动脚本对web_demo进行启动。
+
+关于第三条，仅需要把我们上一步写好的 `web_demo.py` 修改几行即可：(本项目改名为 `[app.py](http://app.py)` 并存于 `openxlab` 文件夹中 ）
+
+```python
+#########################新加内容######################################
+from modelscope import snapshot_download
+
+model_id = 'JimmyMa99/BaJie-Chat'
+mode_name_or_path = snapshot_download(model_id, revision='master')
+#######################################################################
+##########################修改内容######################################
+@st.cache_resource
+def load_model():
+    # 从预训练的模型中获取tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(mode_name_or_path, trust_remote_code=True)
+    # 从预训练的模型中获取模型，并设置模型参数
+    model = AutoModelForCausalLM.from_pretrained(mode_name_or_path, trust_remote_code=True, torch_dtype=torch.bfloat16).cuda()
+    return model, tokenizer
+#######################################################################
+```
+
+关于第四条，新建一个 `[start.py](http://start.py)` ，内容如下：
+
+```python
+import os
+
+os.system('streamlit run openxlab/app.py --server.address=0.0.0.0 --server.port 7860')
+```
+
+此时 `openxlab` 下的结构应该为
+
+```bash
+openxlab
+├── app.py
+└── start.py
+```
+
+如依然不清楚，请看[链接](https://github.com/JimmyMa99/BaJie-Chat/tree/main/openxlab)
+
+接下来开始部署：
+
+首先需要打开 [OpenXLab](https://openxlab.org.cn/home)，点击“创建”，选择“创建应用”，随后选择 gradio 点击 “开始创建”。
+
+![Untitled](figure/xlab1.png)
+
+接下来需要按照要求填写相关信息，同步 GitHub 仓库，选择硬件资源。
+
+![Untitled](figure/xlab2.png)
+
+注意此处有一个“自定义启动文件”的选项，建议点击开启，并填入刚才写好的 `[start.py](http://start.py)` 路径： `openxlab/start.py`
+
+点击“立即创建”后稍加等待，此时查看“设置”时应该如下：
+
+![Untitled](figure/xlab3.png)
+
+等待一定的时间后部署成功！
+
+![Untitled](figure/xlab4.png)
+
+</details>
 
 # 使用 lmdeploy 进行部署
 
-待更新
+本项目是利用 lmdeploy 启动 API Server，利用简易的 chatroom 达到多个 llm 对话的效果。
 
 # 相关链接
 
