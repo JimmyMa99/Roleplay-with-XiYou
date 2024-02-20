@@ -446,10 +446,53 @@ openxlab
 
 </details>
 
-# 使用 lmdeploy 进行部署
+# 使用 LMDeploy 进行部署
 
-本项目是利用 lmdeploy 启动 API Server，利用简易的 chatroom 达到多个 llm 对话的效果。
+<details>
+  <summary style="font-weight: bold; font-size: larger;">⚙️利用 LMDeploy 启动 API Server</summary>
 
+本项目是利用 LMDeploy 启动 API Server，利用简易的 chatroom 达到多个 llm 对话的效果。
+
+为了让一张 A100 能够部署两个模型的 API 需要进行一些设置
+
+1. 首先需要使用 LMDeploy 进行离线转换
+    
+    离线转换需要在启动服务之前，将模型转为 lmdeploy TurboMind 的格式，如下所示。
+    
+    ```python
+    # 转换模型（FastTransformer格式） TurboMind
+    lmdeploy convert internlm2-chat-7b {repo_file}
+    #lmdeploy convert internlm2-chat-7b ./BaJie-Chat
+    ```
+    
+    随后会产生一个 `workspace` 文件夹，将其重命名。
+    
+    ```python
+    mv workspace zbj_workspace
+    ```
+    
+    接下来继续转换别的模型，此处不在赘述。
+    
+2. 修改 `zbj_workspace/triton_models/weights/config.ini` 中的参数
+    
+    ```python
+    #22行
+    cache_max_entry_count = 0.08
+    ```
+    
+3. 启动api
+    
+    新建一个终端，开启八戒-Chat
+    
+    ```jsx
+    #八戒-Chat 启动
+    lmdeploy serve api_server ./BaJie-Chat --server-name ${gradio_ui_ip} --server-port ${gradio_ui_port}
+    ```
+</details>    
+
+# 启动 Chatroom 和 streamlit
+
+待更新
 # 相关链接
 
 [三藏-Chat](https://github.com/JimmyMa99/SanZang-Chat)
