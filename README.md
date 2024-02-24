@@ -128,18 +128,36 @@ git clone https://www.modelscope.cn/JimmyMa99/WuJing-Chat.git
 
 ## lmdeploy api
 
+首先需要使用 LMDeploy 进行离线转换
+    
+离线转换需要在启动服务之前，将模型转为 lmdeploy TurboMind 的格式，如下所示。
+
+```python
+# 转换模型（FastTransformer格式） TurboMind
+lmdeploy convert internlm2-chat-7b {repo_file}
+#lmdeploy convert internlm2-chat-7b ./BaJie-Chat
+```
+
+随后会产生一个 `workspace` 文件夹，将其重命名。
+
+```python
+mv workspace zbj_workspace
+```
+
+接下来继续转换别的模型，此处不在赘述。
+
 使用lmdeploy开启服务，以开启悟空-Chat 和 八戒-Chat 为例：
 
 ```shell
 #悟空-Chat 启动
-lmdeploy serve api_server ./WuKong-Chat --server-name ${gradio_ui_ip} --server-port ${gradio_ui_port}
+lmdeploy serve api_server swk_workspace --server-name ${gradio_ui_ip} --server-port ${gradio_ui_port}
 ```
 
 新建一个终端，开启八戒-Chat
 
 ```shell
 #八戒-Chat 启动
-lmdeploy serve api_server ./WuKong-Chat --server-name ${gradio_ui_ip} --server-port ${gradio_ui_port}
+lmdeploy serve api_server zbj_workspace --server-name ${gradio_ui_ip} --server-port ${gradio_ui_port}
 ```
 
 ## 聊天室开启
@@ -486,7 +504,7 @@ openxlab
     
     ```jsx
     #八戒-Chat 启动
-    lmdeploy serve api_server ./BaJie-Chat --server-name ${gradio_ui_ip} --server-port ${gradio_ui_port}
+    lmdeploy serve api_server zbj_workspace --server-name ${gradio_ui_ip} --server-port ${gradio_ui_port}
     ```
 </details>    
 
@@ -531,6 +549,4 @@ openxlab
 
 # 写在最后
 
-时间易逝，光阴荏苒，**西游角色扮演**这篇Readme文档也将接近尾声。说到尾声，我就想起了我们师徒四人在86版《西游记》中经历的最后一难。明年年初，中美合拍的《西游记》即将正式开机，我将继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家多多关注。
-
-今年下半年，中美合拍的西游记即将正式开机，我继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家能多多关注。
+时间易逝，光阴荏苒，**西游角色扮演**这篇Readme文档也将接近尾声。说到尾声，我就想起了我们师徒四人在86版《西游记》中经历的最后一难。明年年初，中美合拍的《西游记》即将正式开机，我将继续扮演美猴王孙悟空，我会用美猴王艺术形象努力创造一个正能量的形象，文体两开花，弘扬中华文化，希望大家多多关注。+
