@@ -34,6 +34,8 @@
 
 [八戒-Chat](https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat)
 
+[八戒-Chat-mini (internLM2-Chat-1.8b全量微调)](https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini)
+
 ![Untitled](figure/play3.png)
 
 [悟净-Chat](https://openxlab.org.cn/apps/detail/JimmyMa99/WuJing-Chat)
@@ -511,6 +513,10 @@ openxlab
 # 启动 Chatroom 和 streamlit
 
 待更新
+
+# News
+
+[2024.2.28] BaJie-Chat-mini internLM2-chat-1.8b 全量微调已经登录 [OpenXLab](https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini)
 
 # 相关链接
 
