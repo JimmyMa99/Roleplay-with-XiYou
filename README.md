@@ -10,7 +10,7 @@
 
 # 简介
 
-基于《西游记》原文、白话文、ChatGPT生成数据制作的，以InternLM2微调的角色扮演多LLM聊天室。
+基于《西游记》原文、白话文、ChatGPT生成数据制作的，以InternLM2微调的角色扮演多LLM聊天室。介绍视频请戳[B站链接](https://www.bilibili.com/video/BV1x2421K7VQ/)。
 
 本项目将介绍关于角色扮演类 LLM 的一切，从数据获取、数据处理，到使用 XTuner 微调并部署至 OpenXLab，再到使用 LMDeploy 部署，以 openai api 的方式接入简单的聊天室，并可以观看不同角色的 LLM 互相交流、互怼。
 
@@ -20,6 +20,12 @@
 > 
 
 ![Untitled](figure/Chat-with-XiYou.png)
+
+# 🎲Chatroom青春版试玩
+
+[XiYou-chatroom](https://openxlab.org.cn/apps/detail/kv-chiu/XiYou-chatroom)
+
+![Untitled](figure/xlab-chatroom.png)
 
 # 🎲单个模型速速开玩
 
@@ -518,7 +524,12 @@ openxlab
 
 # News
 
-[2024.2.28] BaJie-Chat-mini internLM2-chat-1.8b 全量微调已经登录 [OpenXLab](https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini)
+[2024.3.16] [Roleplay-with-XiYou B站视频上传](https://www.bilibili.com/video/BV1x2421K7VQ/)欢迎一键三联
+
+[2024.3.16] [XiYou-chatroom青春版](https://openxlab.org.cn/apps/detail/kv-chiu/XiYou-chatroom)登录openxlab 
+
+[2024.2.28] BaJie-Chat-mini internLM2-chat-1.8b 全量微调已经登录 
+[![Open in OpenXLab](https://cdn-static.openxlab.org.cn/header/openxlab_models.svg)](https://openxlab.org.cn/models/detail/JimmyMa99/BaJie-Chat-1.8b)
 
 # 相关链接
 
