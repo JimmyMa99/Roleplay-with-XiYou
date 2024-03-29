@@ -522,6 +522,18 @@ openxlab
 
 待更新
 
+# 浦源大模型系列挑战赛（春季赛）创新创意奖作品
+
+<div align="center">
+
+<img src="figure/西天取经组ppt.png" width="2000"/>
+  <div>&nbsp;</div>
+  <div align="center">
+  </div>
+</div>
+
+![Untitled](figure/浦源挑战赛.png)
+
 # News
 
 [2024.3.16] [Roleplay-with-XiYou B站视频上传](https://www.bilibili.com/video/BV1x2421K7VQ/)欢迎一键三联
