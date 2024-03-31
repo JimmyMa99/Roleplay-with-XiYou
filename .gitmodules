@@ -7,3 +7,6 @@
 [submodule "deploy/Lmdeploy"]
 	path = deploy/Lmdeploy
 	url = https://github.com/JimmyMa99/lmdeploy.git
+[submodule "XiYou-Chatroom-frontend"]
+	path = XiYou-Chatroom-frontend
+	url = https://github.com/kv-chiu/XiYou-Chatroom-frontend.git
