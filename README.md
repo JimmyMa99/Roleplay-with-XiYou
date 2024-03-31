@@ -518,9 +518,41 @@ openxlab
     ```
 </details>    
 
-# 启动 Chatroom 和 streamlit
+# 启动 Chatroom 前端
 
-待更新
+> [!NOTE]
+> 前端基于 Nextjs 进行开发：[项目地址](https://github.com/kv-chiu/XiYou-Chatroom-frontend)
+
+<details>
+  <summary style="font-weight: bold; font-size: larger;">⚙️前端安装与部署</summary>
+
+## 开始
+
+首先，您需要安装 Node.js。Node.js 是一个运行在服务器端的 JavaScript 环境。这个项目需要 Node.js 才能运行。
+
+### 安装 Node.js
+
+访问 [Node.js 官网](https://nodejs.org/) 并下载适合您操作系统的版本。网站上提供了安装指南。安装完成后，您可以在命令行中运行 `node -v` 来检查安装是否成功，它应该会返回当前安装的 Node.js 版本。
+
+### 运行开发服务器
+
+安装完 Node.js 后，通过以下命令启动开发服务器：
+
+```bash
+npm run dev
+# 或
+yarn dev
+# 或
+pnpm dev
+# 或
+bun dev
+```
+
+使用浏览器打开 [http://localhost:3000](http://localhost:3000) 查看结果。
+
+您可以通过修改 `app/page.js` 来开始编辑页面。文件会随着您的编辑自动更新。
+
+</details>    
 
 # 浦源大模型系列挑战赛（春季赛）创新创意奖作品
 
